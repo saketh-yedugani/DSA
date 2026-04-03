@@ -1,0 +1,23 @@
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        result = []
+        permutations = []
+        count = defaultdict(int)
+        for i in nums:
+            count[i] += 1
+        
+        def dfs():
+            if len(permutations) == len(nums):
+                result.append(permutations.copy())
+                return
+            
+            for n in count:
+                if count[n] >0:
+                    permutations.append(n)
+                    count[n] -=1
+                    dfs()
+
+                    count[n] +=1
+                    permutations.pop()
+        dfs()
+        return result
